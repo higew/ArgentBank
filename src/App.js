@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
 import SignIn from './pages/signIn/SignIn';
+import UserPage from './pages/user/User';
 import './assets/css/style.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/sign-in" element={<SignIn/>}/>
+        <Route path="/user" element={<UserPage/>}/>
       </Routes>
       <Footer />
     </div>
