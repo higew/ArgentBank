@@ -17,6 +17,11 @@ export const userSlice = createSlice({
       const { connect, token } = action.payload;
       state.connect = connect;
       state.token = token;
+      sessionStorage.setItem("token", token);
+    },
+    checkSession: (state, action) => {
+      state.token = action.payload;
+      state.connect = true;
     },
     setDataUser: (state, action) => {
       const { firstName, lastName } = action.payload;
@@ -28,9 +33,10 @@ export const userSlice = createSlice({
       state.firstName = null;
       state.lastName = null;
       state.token = null;
+      sessionStorage.removeItem("token");
     },
   },
 });
 
 export default userSlice.reducer;
-export const { setLogin, setDataUser, setLogout } = userSlice.actions;
+export const { setLogin, setDataUser, checkSession,setLogout } = userSlice.actions;

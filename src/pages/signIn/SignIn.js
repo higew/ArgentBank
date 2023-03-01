@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loginUser } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,20 +10,18 @@ function SignIn() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (sessionStorage.getItem("token") != null) {
+            navigate("/user");
+        }
+    }, [navigate]);
+
     const handleForm = (e) => {
         e.preventDefault();
         loginUser(user, password).then((data) => {
             dispatch(setLogin({ connect: true, token: data.body.token }));
             navigate("/user");
         });
-    };
-
-    const onChangeUser = (e) => {
-        setUser(e.target.value);
-    };
-
-    const onChangePassword = (e) => {
-        setPassword(e.target.value);
     };
 
     return (
@@ -35,11 +33,11 @@ function SignIn() {
             <form onSubmit={handleForm}>
                 <div className="input-wrapper">
                     <label htmlFor="username">Username</label>
-                    <input type="text" id="username" onChange={onChangeUser}/>
+                    <input type="text" id="username" onChange={(e) => setUser(e.target.value)}/>
                 </div>
                 <div className="input-wrapper">
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" onChange={onChangePassword}/>
+                    <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className="input-remember">
                     <input type="checkbox" id="remember-me"/>

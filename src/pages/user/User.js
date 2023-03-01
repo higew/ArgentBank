@@ -1,6 +1,6 @@
 import { transactionData } from "../../data/data"
 import { recoverDataUser } from "../../services/api";
-import { setDataUser } from "../../features/userSlice";
+import { setDataUser, checkSession } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -13,10 +13,12 @@ function UserPage() {
     const token = useSelector((state) => state.user.token);
 
     useEffect(() => {
-        if (stateConnect === false || token === null) {
-            navigate("/sign-in");
+        if (sessionStorage.getItem("token") != null) {
+            dispatch(checkSession(
+                sessionStorage.getItem("token")
+            ))
         }
-    }, [navigate, stateConnect, token]);
+    }, [dispatch, navigate, stateConnect, token]);
 
     useEffect(() => {
         recoverDataUser(token).then((data) => {
