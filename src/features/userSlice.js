@@ -7,7 +7,6 @@ const initialState = {
   token: null,
 };
 
-
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -39,4 +38,4 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { setLogin, setDataUser, checkSession,setLogout } = userSlice.actions;
+export const { setLogin, setDataUser, checkSession, setLogout } = userSlice.actions;

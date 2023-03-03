@@ -1,12 +1,30 @@
 import ArgentBankIcon from "../../assets/argentBankLogo.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "../../features/userSlice";
+import { checkSession, setDataUser, setLogout } from "../../features/userSlice";
+import { recoverDataUser } from "../../services/api";
+import { useEffect } from "react";
 
 function Header() {
     const dispatch = useDispatch();
     const firstName = useSelector((state) => state.user.firstName);
     const stateConnectUser = useSelector((state) => state.user.connect);
+    const token = useSelector((state) => state.user.token);
+
+    useEffect(() => {
+        if (sessionStorage.getItem("token") != null) {
+            dispatch(checkSession(
+                sessionStorage.getItem("token")
+            ))
+            recoverDataUser(token).then((data) => {
+                dispatch(
+                    setDataUser({
+                        firstName: data.body.firstName,
+                    })
+                );
+            });
+        }
+    }, [dispatch, token]);
 
     const handleLogout = () => {
         dispatch(setLogout());
@@ -14,7 +32,7 @@ function Header() {
 
     return (
         <nav className={stateConnectUser === true
-            ? "main-nav main-nav--user-connect"
+            ? "main-nav main-nav-user-connect"
             : "main-nav"
         }>
             <Link className="main-nav-logo" to={"/"}>

@@ -18,3 +18,16 @@ export const recoverDataUser = async (token) => {
         console.log(error.response);
     }
 };
+
+export const changeUsername = async (token, firstName, lastName) => {
+    try {
+        const response = await axios.put(
+            "http://localhost:3001/api/v1/user/profile",
+            { firstName: firstName, lastName: lastName },
+            { headers: { Authorization: "Bearer" + token } }
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error.response);
+    }
+};
