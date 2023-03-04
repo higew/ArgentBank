@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import ArgentBankIcon from "../../assets/argentBankLogo.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,10 +48,11 @@ function Header() {
             {stateConnectUser === true ? (
             <div>
                 <Link to={"/user"} className={"main-nav-item"}>
+                    <i className="fa fa-user-circle"></i>
                     {firstName}
                 </Link>
                 <Link className="main-nav-item" to={"/"} onClick={handleLogout}>
-                    <i className="fa fa-user-circle"></i>
+                    <FontAwesomeIcon icon={faRightFromBracket}/>
                     Sign out
                 </Link>
             </div>

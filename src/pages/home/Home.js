@@ -3,10 +3,10 @@ import { Features } from "../../components/features/Features"
 
 function Home() {
     return (
-        <div className="homepage">
-        <Banner/>
-        <Features/>
-        </div>
+        <main>
+            <Banner/>
+            <Features/>
+        </main>
     )
 }
 

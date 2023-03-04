@@ -70,6 +70,14 @@ html {
     max-width: 100%;
     width: 200px;
   }
+
+  .main-nav i {
+    padding: 5px;
+  }
+
+  .main-nav svg {
+    padding: 0 5px 0 5px;
+  }
   
   .hero {
     background-image: url('../img/bank-tree.jpeg');
@@ -260,25 +268,34 @@ html {
     padding: 10px;
   }
 
-  .header .form-change-name form {
+  .header {
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+  
+  .form-change-name form {
     display: flex;
     flex-direction: column;
   }
-  .header .form-change-name input {
+
+  .form-change-name input {
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
   }
-  .header .form-change-name button {
+
+  .form-change-name button {
     padding: 10px 29px;
     color: #6458f5;
     border: 1px solid #6458f5;
     border-radius: 5px;
   }
-  .header .form-change-name #form-change-name-buttons-save {
+
+  #form-change-name-buttons-save {
     margin-right: 20px;
   }
-  .header .form-change-name #form-change-name-buttons-cancel {
+
+  #form-change-name-buttons-cancel {
     margin-right: -11px;
   }
   
@@ -313,12 +330,7 @@ html {
       opacity: 0;
     }
   }
-  
-  .header {
-    color: #fff;
-    margin-bottom: 2rem;
-  }
-  
+
   .transaction-button {
     display: block;
     width: 100%;
