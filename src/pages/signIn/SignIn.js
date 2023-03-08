@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setLogin } from "../../features/userSlice";
 
 function SignIn() {
+    const [error, setError] = useState("");
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
@@ -21,7 +22,10 @@ function SignIn() {
         loginUser(user, password).then((data) => {
             dispatch(setLogin({ connect: true, token: data.body.token }));
             navigate("/user");
-        });
+        }).catch(error => {
+            console.log(error);
+            setError("Login or password incorrect.");
+        })
     };
 
     return (
@@ -31,6 +35,7 @@ function SignIn() {
                 <h1>Sign In</h1>
                 <form onSubmit={handleForm}>
                     <div className="input-wrapper">
+                        {error?<label className="red-error">{error}</label>:null}  
                         <label htmlFor="username">Username</label>
                         <input type="text" id="username" onChange={(e) => setUser(e.target.value)}/>
                     </div>

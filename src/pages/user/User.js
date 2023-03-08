@@ -7,43 +7,37 @@ import { useEffect, useState } from "react";
 import Transaction from "../../components/transaction/Transaction";
 
 function UserPage() {
+    const {token, firstName, lastName} = useSelector((state) => state.user)
+    const [editFirstName, setFirstname] = useState(firstName);
+    const [editLastName, setLastname] = useState(lastName);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const stateConnect = useSelector((state) => state.user.connect);
-    const token = useSelector((state) => state.user.token);
 
     useEffect(() => {
         if (sessionStorage.getItem("token") != null) {
             dispatch(checkSession(
                 sessionStorage.getItem("token")
             ))
+            recoverDataUser(sessionStorage.getItem("token")).then((data) => {
+                dispatch(
+                    setDataUser({
+                        firstName: data.body.firstName,
+                        lastName: data.body.lastName,
+                    })
+                );
+            });
         }
         else {
             navigate("/sign-in")
         }
-    }, [dispatch, navigate, stateConnect, token]);
-
-    useEffect(() => {
-        recoverDataUser(token).then((data) => {
-            dispatch(
-                setDataUser({
-                    firstName: data.body.firstName,
-                    lastName: data.body.lastName,
-                })
-            );
-        });
-    }, [dispatch, token]);
-
-    const firstName = useSelector((state) => state.user.firstName);
-    const lastName = useSelector((state) => state.user.lastName);
+        setFirstname(firstName)
+        setLastname(lastName)
+    }, [dispatch, navigate, firstName, lastName]);
 
     const [open, setOpen] = useState(false);
     const handleOpenFormUser = () => {
         setOpen(true);
     };
-
-    const [editFirstName, setFirstname] = useState("");
-    const [editLastName, setLastname] = useState("");
 
     const handleForm = (e) => {
         e.preventDefault();
@@ -83,8 +77,8 @@ function UserPage() {
                 }>
                     <form onSubmit={handleForm}>
                         <div className={"form-change-name-inputs"}>
-                            <input placeholder={"Firstname"} onChange={(e) => setFirstname(e.target.value)} />
-                            <input placeholder={"Lastname"} onChange={(e) => setLastname(e.target.value)} />
+                            <input placeholder={editFirstName} onChange={(e) => setFirstname(e.target.value)} />
+                            <input placeholder={editLastName} onChange={(e) => setLastname(e.target.value)} />
                         </div>
                         <div className={"form-change-name-buttons"}>
                             <button id={"form-change-name-buttons-save"} type="submit" onClick={handleCloseForm}>
