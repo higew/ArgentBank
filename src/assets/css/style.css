@@ -359,3 +359,9 @@ html {
     }
   }
   
+  #error-page {
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
